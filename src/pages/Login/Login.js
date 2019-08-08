@@ -5,6 +5,8 @@ import AppBar from "../../shared/AppBar";
 
 import TextField from "../../shared/TextField";
 import Checkbox from "../../shared/Checkbox";
+import Progress from "../../shared/Progress";
+import Modal from "../../shared/Modal";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +15,7 @@ const Login = () => {
 
   return (
     <div>
-      <AppBar>heyy</AppBar>
+      <AppBar />
       <Wrapper>
         <form>
           <Heading>Log in</Heading>
@@ -37,6 +39,11 @@ const Login = () => {
           />
           <LoginButton type="submit">Login</LoginButton>
         </form>
+        {remember && (
+          <Modal>
+            <Progress percent={60} />
+          </Modal>
+        )}
       </Wrapper>
     </div>
   );

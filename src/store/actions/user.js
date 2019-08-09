@@ -1,25 +1,34 @@
 import {
-  FOLLOW_COIN,
-  UNFOLLOW_COIN,
-  SET_THEME,
-  SET_BACKGROUND,
-  TOGGLE_VINTAGE_FONT
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS
 } from "./actionTypes";
 
-export const setUserCoin = (coin, follow) => ({
-  type: follow ? FOLLOW_COIN : UNFOLLOW_COIN,
-  payload: coin
-});
+import API from "../../API";
 
-export const setTheme = theme => ({
-  type: SET_THEME,
-  payload: theme
-});
-export const setBackground = backgroundIndex => ({
-  type: SET_BACKGROUND,
-  payload: backgroundIndex
-});
-export const toggleVintageFont = isVintage => ({
-  type: TOGGLE_VINTAGE_FONT,
-  payload: isVintage
-});
+export function login({ email, password, remember }) {
+  return async dispatch => {
+    dispatch({ type: LOGIN_REQUEST });
+    try {
+      // TODO catch errors
+      await API.login({ email, password });
+      return dispatch({ type: LOGIN_SUCCESS, payload: { email, remember } });
+    } catch (err) {
+      dispatch({ type: LOGIN_ERROR });
+    }
+  };
+}
+
+export function logout() {
+  return async dispatch => {
+    dispatch({ typeL: LOGOUT_REQUEST });
+    try {
+      await API.logout();
+    } catch (err) {
+      console.log("logout error in middleware 🤖");
+    }
+    return dispatch({ type: LOGOUT_SUCCESS });
+  };
+}

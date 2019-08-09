@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
+
+import { login } from "../../store/actions/user";
+import { dismissLoginError } from "../../store/actions/errors";
 
 import AppBar from "../../shared/AppBar";
 
+import ProgressOverlay from "./ProgressOverlay";
+
 import TextField from "../../shared/TextField";
 import Checkbox from "../../shared/Checkbox";
-import Progress from "../../shared/Progress";
-import Modal from "../../shared/Modal";
+import Snackbar from "../../shared/Snackbar";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Login = ({ login, loading, error, dismissLoginError }) => {
+  const [email, setEmail] = useState("login@applover.pl");
+  const [password, setPassword] = useState("password123");
   const [remember, setRemember] = useState(false);
-
   return (
     <div>
       <AppBar />
@@ -37,19 +41,44 @@ const Login = () => {
             label="Keep me logged in"
             style={{ marginTop: 3 }}
           />
-          <LoginButton type="submit">Login</LoginButton>
+          <LoginButton
+            onClick={e => {
+              e.preventDefault();
+              login({ email, password, remember });
+            }}
+          >
+            Login
+          </LoginButton>
         </form>
-        {remember && (
-          <Modal>
-            <Progress percent={60} />
-          </Modal>
+        {loading && !error && <ProgressOverlay message={"Processing..."} />}
+        {error && (
+          <Snackbar
+            message="Invalid email or password"
+            onClose={dismissLoginError}
+          />
         )}
       </Wrapper>
     </div>
   );
 };
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    loading: state.loading.login,
+    error: state.errors.login
+  };
+};
+const mapDispatchToProps = dispatch => ({
+  login: ({ email, password, remember }) =>
+    dispatch(login({ email, password, remember })),
+  dismissLoginError: () => dispatch(dismissLoginError())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);
 
 const Wrapper = styled.div`
   max-width: 397px;

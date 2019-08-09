@@ -9,19 +9,12 @@ class API {
   }
 
   login = async ({ email, password }) => {
-    const query = `https://api.coingecko.com/api/v3/events?upcoming_events_only=${true}`;
-
-    try {
-      const response = await this.axios.post("api/v1/login", {
-        email,
-        password
-      });
-      console.log(response);
-      return true;
-    } catch (err) {
-      console.log(err);
-      return false;
-    }
+    // try {
+    await this.axios.post("api/v1/login", {
+      email,
+      password
+    });
+    // } catch (err) {}
   };
 }
 

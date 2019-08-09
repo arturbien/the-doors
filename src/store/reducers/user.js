@@ -4,21 +4,18 @@ import { saveState, loadState } from "../localStorage";
 
 const LOCAL_STORAGE_KEY = "user";
 
-const persistedState = loadState(LOCAL_STORAGE_KEY) || {};
+const initialState = loadState(LOCAL_STORAGE_KEY) || null;
 
-const initialState = {
-  name: "Artur"
-};
-
+// TODO save login token to state
 const userReducer = (state = initialState, action) => {
-  const newState = (function() {
-    switch (action.type) {
-      default:
-        return state;
-    }
-  })();
-  saveState(LOCAL_STORAGE_KEY, newState);
-  return newState;
+  switch (action.type) {
+    case LOGIN_SUCCESS:
+      const { email, remember } = action.payload;
+      remember && saveState(LOCAL_STORAGE_KEY, email);
+      return email;
+    default:
+      return state;
+  }
 };
 
 export default userReducer;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import LogoImage from "../assets/images/Logo.png";
+import LogoImage from "../assets/images/Logo@2x.png";
 //TODO add higher resolution image for retinas n stuff
 //TODO add alt
 

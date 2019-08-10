@@ -6,7 +6,7 @@ import Logo from "./Logo";
 const Wrapper = styled.header`
   height: 80px;
   background: #ffffff;
-  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.16);
 `;
 
 const Center = styled(Container)`
@@ -23,7 +23,7 @@ const AppBar = ({ left, right, ...otherProps }) => (
     <Center>
       <div>
         <a href="/">
-          <Logo style={{ height: 47, marginTop: -1.5 }} />
+          <Logo style={{ height: 47, marginTop: 3 }} />
         </a>
       </div>
       {right && <div>{right}</div>}

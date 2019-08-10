@@ -90,6 +90,8 @@ const Wrapper = styled.div`
 
   fieldset {
     border: none;
+    margin: 0;
+    padding: 0;
   }
 `;
 const Heading = styled.h3`
@@ -105,7 +107,7 @@ const Heading = styled.h3`
 const LoginButton = styled.button`
   height: 48px;
   width: 100%;
-  margin-top: 29px;
+  margin-top: 27px;
 
   background: rgba(29, 226, 120, 1);
 

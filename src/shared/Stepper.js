@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   transform: translateX(-50%);
   display: inline-flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
 
   &:before {
     content: "";
@@ -52,9 +52,12 @@ const StepLabel = styled.span`
   position: relative;
   margin-top: 11px;
 
+  text-transform: uppercase;
+  text-align: center;
   font-weight: bold;
   font-size: 10px;
   line-height: 13px;
+  white-space: pre-line;
   color: rgba(132, 140, 147, 1);
 `;
 

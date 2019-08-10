@@ -6,3 +6,10 @@ export const LOGIN_ERROR_DISMISS = "LOGIN_ERROR_DISMISS";
 export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_ERROR = "LOGOUT_ERROR";
+
+export const SET_DOOR_WIDTH = "SET_DOOR_WIDTH";
+export const SET_DOOR_HEIGHT = "SET_DOOR_HEIGHT";
+export const SET_DOOR_COLOR = "SET_DOOR_COLOR";
+export const SET_DOOR_POSTS = "SET_DOOR_POSTS";
+export const SET_DOOR_BEAMS = "SET_DOOR_BEAMS";
+export const SET_DOOR_TYPE = "SET_DOOR_TYPE";

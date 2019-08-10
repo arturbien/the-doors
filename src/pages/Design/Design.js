@@ -5,6 +5,10 @@ import { connect } from "react-redux";
 import { login } from "../../store/actions/user";
 import { dismissLoginError } from "../../store/actions/errors";
 
+import { DOOR_TYPES, COLORS } from "../../config";
+
+import ColorsSelect from "./ColorsSelect";
+
 import AppBar from "../../shared/AppBar";
 import RectButton from "../../shared/RectButton";
 import Stepper from "../../shared/Stepper";
@@ -37,9 +41,7 @@ const Sidebar = styled.aside`
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  padding: 0 28px;
-
-  border: 1px solid red;
+  padding-left: 28px;
 `;
 const Text = styled.span`
   font-size: 14px;
@@ -47,7 +49,7 @@ const Text = styled.span`
   color: #848c93;
   font-weight: normal;
 `;
-const StepperNavigation = styled.nav`
+const SettingsNav = styled.nav`
   display: inline-flex;
   padding-left: 5px;
 
@@ -62,7 +64,13 @@ const Field = styled.div`
   padding: 3px 0;
 `;
 const Fieldset = styled.fieldset`
+  display: inline-block;
   margin-top: 28px;
+
+  width: 280px;
+  ${Divider} {
+    max-width: 153px;
+  }
 `;
 const TypeSettings = styled(Fieldset)``;
 const StructureSettings = styled(Fieldset)`
@@ -85,43 +93,17 @@ const ColorSettings = styled(Fieldset)``;
 const Suffix = styled(Text)`
   margin-left: 5px;
 `;
-const ColorSelect = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-const ColorOption = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 10px;
-  margin-right: 28px;
-  /* width: 33%; */
-`;
-const ColorPreview = styled.span`
-  display: inline-block;
-  height: 35px;
-  width: 35px;
-  border-radius: 50%;
-  background: ${({ color }) => color};
-`;
-// TODO programatically add DOOR_TYPES options etc
-const DOOR_TYPES = {
-  SINGLE: "SINGLE",
-  DOUBLE: "DOUBLE"
-};
-const COLORS = {
-  BLACK: "#000000",
-  WHITE: "#F4F2F2",
-  GRAY: "#797474",
-  NEON: "#1DE278",
-  SKY: "#2699FB"
-};
+
 const Design = ({ login, loading, error, dismissLoginError }) => {
   const [step, setStep] = useState(2);
   const [doorType, setDoorType] = useState(DOOR_TYPES.SINGLE);
-  const [color, setColor] = useState(COLORS.BLACK);
+  const [color, setColor] = useState(COLORS.BLACK.value);
 
-  const steps = ["STEP 1", "STEP 2", "STEP 3"];
+  const steps = [
+    `step 1\nchoose door`,
+    "step 2\nchoose door division",
+    "step 3\nchoose color"
+  ];
   const handleChangeStep = index => {
     if (index !== step && index >= 0 && index <= steps.length - 1) {
       setStep(index);
@@ -130,22 +112,12 @@ const Design = ({ login, loading, error, dismissLoginError }) => {
   const handleChangeType = e => {
     setDoorType(e.target.value);
   };
-  const handleChangeColor = e => {
-    const newColor = e.target.value;
-    if (newColor !== color) {
-      setColor(e.target.value);
-    }
-  };
   return (
     <>
       <AppBar right={"swag"} />
       <Main>
         <Stepper
-          steps={[
-            `step 1\nchoose door`,
-            "step 2\nchoose door division",
-            "step 3\nchoose color"
-          ]}
+          steps={steps}
           activeStep={step}
         />
 
@@ -201,53 +173,37 @@ const Design = ({ login, loading, error, dismissLoginError }) => {
                 </>
               )}
               {step === 1 && (
-                <>
-                  <StructureSettings>
-                    <Text as="legend">{"Door division"}</Text>
-                    <Divider />
+                <StructureSettings>
+                  <Text as="legend">{"Door division"}</Text>
+                  <Divider />
 
-                    <Field>
-                      <label htmlFor="beams">
-                        <Text>{"Number of beams"}</Text>
-                      </label>
-                      <SpinnerInput value={120} max={100} name="beams" />
-                    </Field>
-                    <Field>
-                      <label htmlFor="posts">
-                        <Text>{"Number of posts"}</Text>
-                      </label>
-                      <SpinnerInput value={120} max={100} name="posts" />
-                    </Field>
-                  </StructureSettings>
-                </>
+                  <Field>
+                    <label htmlFor="beams">
+                      <Text>{"Number of beams"}</Text>
+                    </label>
+                    <SpinnerInput value={120} max={100} name="beams" />
+                  </Field>
+                  <Field>
+                    <label htmlFor="posts">
+                      <Text>{"Number of posts"}</Text>
+                    </label>
+                    <SpinnerInput value={120} max={100} name="posts" />
+                  </Field>
+                </StructureSettings>
               )}
               {step === 2 && (
-                <>
-                  <ColorSettings>
-                    <Text as="legend">{"Choose color"}</Text>
-                    <Divider />
-                    <ColorSelect>
-                      {Object.keys(COLORS).map(colorName => (
-                        <ColorOption key={colorName}>
-                          <ColorPreview
-                            color={COLORS[colorName]}
-                            onClick={() => setColor(COLORS[colorName])}
-                          />
-                          <Radio
-                            onChange={handleChangeColor}
-                            value={COLORS[colorName]}
-                            checked={color === COLORS[colorName]}
-                            // name="type"
-                            label={<Text>{colorName}</Text>}
-                          />
-                        </ColorOption>
-                      ))}
-                    </ColorSelect>
-                  </ColorSettings>
-                </>
+                <ColorSettings>
+                  <Text as="legend">{"Choose color"}</Text>
+                  <Divider />
+                  <ColorsSelect
+                    colors={Object.keys(COLORS).map(colorID => COLORS[colorID])}
+                    activeColor={color}
+                    onChange={setColor}
+                  />
+                </ColorSettings>
               )}
             </div>
-            <StepperNavigation>
+            <SettingsNav>
               {step > 0 && (
                 <RectButton onClick={() => handleChangeStep(step - 1)}>
                   back
@@ -256,7 +212,7 @@ const Design = ({ login, loading, error, dismissLoginError }) => {
               <RectButton onClick={() => handleChangeStep(step + 1)} primary>
                 next step
               </RectButton>
-            </StepperNavigation>
+            </SettingsNav>
           </Sidebar>
         </Configurator>
       </Main>

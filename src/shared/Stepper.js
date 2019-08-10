@@ -62,7 +62,6 @@ const StepLabel = styled.span`
 `;
 
 const Stepper = ({ steps, activeStep, ...otherProps }) => {
-  console.log(steps);
   return (
     <Wrapper {...otherProps}>
       {steps.map((label, i) => (

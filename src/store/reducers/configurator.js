@@ -12,10 +12,10 @@ import { COLORS, DOOR_TYPES } from "../../config";
 const initialState = {
   width: 120,
   height: 240,
-  color: COLORS.BLACK,
+  color: COLORS.BLACK.value,
   posts: 2,
   beams: 4,
-  type: DOOR_TYPES.SINGLE
+  type: DOOR_TYPES.SINGLE.value
 };
 
 const stateMap = {

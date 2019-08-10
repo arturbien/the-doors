@@ -1,6 +1,6 @@
 export const DOOR_TYPES = {
-  SINGLE: "SINGLE",
-  DOUBLE: "DOUBLE"
+  SINGLE: { value: "SINGLE", name: "Single door" },
+  DOUBLE: { value: "DOUBLE", name: "Double door" }
 };
 export const COLORS = {
   BLACK: { value: "#000000", name: "Black" },

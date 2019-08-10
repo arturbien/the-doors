@@ -1,0 +1,196 @@
+import React from "react";
+import styled from "styled-components";
+
+import { connect } from "react-redux";
+import {
+  setDoorWidth,
+  setDoorHeight,
+  setDoorColor,
+  setDoorPosts,
+  setDoorBeams,
+  setDoorType
+} from "../../../store/actions/configurator";
+
+import ColorsSelect from "../ColorsSelect";
+
+import Radio from "../../../shared/Radio";
+import Divider from "../../../shared/Divider";
+import LabelText from "../../../shared/LabelText";
+import NumberInput from "../../../shared/NumberInput";
+import SpinnerInput from "../../../shared/SpinnerInput";
+
+import { DOOR_TYPES, COLORS } from "../../../config";
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Fieldset = styled.fieldset`
+  display: inline-block;
+  margin-top: 28px;
+
+  width: 280px;
+  ${Divider} {
+    max-width: 153px;
+  }
+`;
+const Field = styled.div`
+  display: flex;
+  align-items: center;
+  width: 130px;
+  padding: 3px 0;
+`;
+const DivisionFieldset = styled(Fieldset)`
+  label {
+    width: 126px;
+  }
+  ${Field} {
+    width: auto;
+  }
+`;
+const SizeFieldset = styled(Fieldset)`
+  label {
+    width: 65px;
+  }
+  ${NumberInput} {
+    max-width: 44px;
+  }
+`;
+const Suffix = styled(LabelText)`
+  margin-left: 5px;
+`;
+
+const Settings = ({
+  // from outsude
+  settingsToDisplay,
+  // from store
+  height,
+  width,
+  color,
+  posts,
+  beams,
+  type,
+
+  setDoorHeight,
+  setDoorWidth,
+  setDoorColor,
+  setDoorPosts,
+  setDoorBeams,
+  setDoorType
+}) => {
+  const colorSettings = (
+    <Fieldset>
+      <LabelText as="legend">{"Choose color"}</LabelText>
+      <Divider />
+      <ColorsSelect
+        colors={Object.keys(COLORS).map(colorID => COLORS[colorID])}
+        activeColor={color}
+        onChange={setDoorColor}
+      />
+    </Fieldset>
+  );
+  const typeSettings = (
+    <Fieldset>
+      <LabelText as="legend">{"Door type"}</LabelText>
+      <Divider />
+      {Object.keys(DOOR_TYPES).map(doorType => (
+        <React.Fragment key={DOOR_TYPES[doorType].value}>
+          <Radio
+            onChange={e => setDoorType(e.target.value)}
+            value={DOOR_TYPES[doorType].value}
+            checked={type === DOOR_TYPES[doorType].value}
+            name="type"
+            label={<LabelText>{DOOR_TYPES[doorType].name}</LabelText>}
+          />
+          <br />
+        </React.Fragment>
+      ))}
+    </Fieldset>
+  );
+  const sizeSettings = (
+    <SizeFieldset>
+      <LabelText as="legend">{"Door size"}</LabelText>
+      <Divider />
+      <Field>
+        <label htmlFor="width">
+          <LabelText>{"Width"}</LabelText>
+        </label>
+        <NumberInput
+          value={width}
+          name="width"
+          onChange={e => setDoorWidth(e.target.value)}
+        />
+        <Suffix>cm</Suffix>
+      </Field>
+      <Field>
+        <label htmlFor="height">
+          <LabelText>{"Height"}</LabelText>
+        </label>
+        <NumberInput
+          value={height}
+          name="height"
+          onChange={e => setDoorHeight(e.target.value)}
+        />
+        <Suffix>cm</Suffix>
+      </Field>
+    </SizeFieldset>
+  );
+  const divisionSettings = (
+    <DivisionFieldset>
+      <LabelText as="legend">{"Door division"}</LabelText>
+      <Divider />
+
+      <Field>
+        <label htmlFor="beams">
+          <LabelText>{"Number of beams"}</LabelText>
+        </label>
+        <SpinnerInput value={beams} max={100} name="beams" />
+      </Field>
+      <Field>
+        <label htmlFor="posts">
+          <LabelText>{"Number of posts"}</LabelText>
+        </label>
+        <SpinnerInput value={posts} max={100} name="posts" />
+      </Field>
+    </DivisionFieldset>
+  );
+  const settings = {
+    DOOR_TYPE: typeSettings,
+    DOOR_SIZE: sizeSettings,
+    DOOR_DIVISION: divisionSettings,
+    DOOR_COLOR: colorSettings
+  };
+  return (
+    <Wrapper>
+      {settingsToDisplay.map(setting => (
+        <React.Fragment key={setting}>{settings[setting]}</React.Fragment>
+      ))}
+    </Wrapper>
+  );
+};
+
+const mapStateToProps = state => {
+  const { width, height, color, posts, beams, type } = state.configurator;
+  return {
+    width,
+    height,
+    color,
+    posts,
+    beams,
+    type
+  };
+};
+const mapDispatchToProps = dispatch => ({
+  setDoorHeight: val => dispatch(setDoorHeight(val)),
+  setDoorWidth: val => dispatch(setDoorWidth(val)),
+  setDoorColor: val => dispatch(setDoorColor(val)),
+  setDoorPosts: val => dispatch(setDoorPosts(val)),
+  setDoorBeams: val => dispatch(setDoorBeams(val)),
+  setDoorType: val => dispatch(setDoorType(val))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Settings);

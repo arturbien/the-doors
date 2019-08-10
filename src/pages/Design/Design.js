@@ -2,26 +2,29 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import Settings from "./Settings/Settings";
+import Preview from "./Preview/Preview";
+
 import AppBar from "../../shared/AppBar";
 import RectButton from "../../shared/RectButton";
 import Stepper from "../../shared/Stepper";
 
 const Main = styled.main`
   padding: 22px 0;
+  display: flex;
+  flex-direction: column;
 `;
 const Configurator = styled.section`
   position: relative;
-  left: 50%;
-  transform: translateX(-332px);
   display: flex;
   height: 472px;
   margin-top: 19px;
 `;
 
-const Preview = styled.div`
+const PreviewWrapper = styled.div`
   width: 590px;
   height: 100%;
 
+  padding: 20px;
   border: 1px solid #e6e6e6;
 `;
 
@@ -42,7 +45,7 @@ const StepperNav = styled.nav`
   }
 `;
 
-const Design = ({ login, loading, error, dismissLoginError }) => {
+const Design = () => {
   const [step, setStep] = useState(0);
 
   const steps = [
@@ -64,26 +67,31 @@ const Design = ({ login, loading, error, dismissLoginError }) => {
     <>
       <AppBar />
       <Main>
-        <Stepper steps={steps} activeStep={step} />
+        <div>
+          <Stepper steps={steps} activeStep={step} />
+        </div>
+        <div>
+          <Configurator>
+            <PreviewWrapper>
+              <Preview />
+            </PreviewWrapper>
 
-        <Configurator>
-          <Preview>sasd</Preview>
+            <Sidebar>
+              <Settings settingsToDisplay={settingsToDisplay[step]} />
 
-          <Sidebar>
-            <Settings settingsToDisplay={settingsToDisplay[step]} />
-
-            <StepperNav>
-              {step > 0 && (
-                <RectButton onClick={() => handleChangeStep(step - 1)}>
-                  back
+              <StepperNav>
+                {step > 0 && (
+                  <RectButton onClick={() => handleChangeStep(step - 1)}>
+                    back
+                  </RectButton>
+                )}
+                <RectButton onClick={() => handleChangeStep(step + 1)} primary>
+                  next step
                 </RectButton>
-              )}
-              <RectButton onClick={() => handleChangeStep(step + 1)} primary>
-                next step
-              </RectButton>
-            </StepperNav>
-          </Sidebar>
-        </Configurator>
+              </StepperNav>
+            </Sidebar>
+          </Configurator>
+        </div>
       </Main>
     </>
   );

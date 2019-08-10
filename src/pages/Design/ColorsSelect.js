@@ -23,6 +23,7 @@ const ColorPreview = styled.span`
   background: ${({ color }) => color};
 `;
 
+// EXAMPLE:
 // colors = [{ name: "Black", value: "#000000" }];
 // activeColor =  "#000000";
 

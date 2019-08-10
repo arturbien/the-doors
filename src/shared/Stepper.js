@@ -3,11 +3,12 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
   display: inline-flex;
   justify-content: space-around;
   align-items: flex-start;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-bottom: 40px;
 
   &:before {
     content: "";
@@ -24,7 +25,6 @@ const StepWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   margin: 0 49px;
   &:first-child {
     margin-left: 0;
@@ -46,11 +46,13 @@ const Step = styled.div`
   border: 20px solid
     ${({ active }) =>
       active ? "rgba(149, 163, 173, 1)" : "rgba(205, 219, 229, 1)"};
+  transition: 0.1s all ease-in-out;
 `;
 
 const StepLabel = styled.span`
-  position: relative;
-  margin-top: 11px;
+  position: absolute;
+  width: 125px;
+  bottom: 0px;
 
   text-transform: uppercase;
   text-align: center;

@@ -2,8 +2,8 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
-  LOGOUT_REQUEST,
-  LOGOUT_SUCCESS
+  LOGOUT_REQUEST
+  // LOGOUT_SUCCESS
 } from "../actions/actionTypes";
 
 const initialState = {

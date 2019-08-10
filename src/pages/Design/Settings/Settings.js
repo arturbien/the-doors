@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { connect } from "react-redux";
@@ -11,15 +11,18 @@ import {
   setDoorType
 } from "../../../store/actions/configurator";
 
+import { DOOR_TYPES, COLORS, STRUCTURE } from "../../../config";
+
 import ColorsSelect from "../ColorsSelect";
 
+import InfoIcon from "../../../assets/images/icon.svg";
+
 import Radio from "../../../shared/Radio";
+import Modal from "../../../shared/Modal";
 import Divider from "../../../shared/Divider";
 import LabelText from "../../../shared/LabelText";
 import NumberInput from "../../../shared/NumberInput";
 import SpinnerInput from "../../../shared/SpinnerInput";
-
-import { DOOR_TYPES, COLORS } from "../../../config";
 
 const Wrapper = styled.div`
   display: flex;
@@ -40,6 +43,16 @@ const Field = styled.div`
   align-items: center;
   width: 130px;
   padding: 3px 0;
+`;
+const Info = styled.span`
+  position: absolute;
+  top: 0px;
+  right: -11px;
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  background: url(${InfoIcon});
+  background-size: cover;
 `;
 const DivisionFieldset = styled(Fieldset)`
   label {
@@ -62,16 +75,15 @@ const Suffix = styled(LabelText)`
 `;
 
 const Settings = ({
-  // from outsude
+  // from the outside
   settingsToDisplay,
-  // from store
+  // from the store
   height,
   width,
   color,
   posts,
   beams,
   type,
-
   setDoorHeight,
   setDoorWidth,
   setDoorColor,
@@ -79,6 +91,8 @@ const Settings = ({
   setDoorBeams,
   setDoorType
 }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
   const colorSettings = (
     <Fieldset>
       <LabelText as="legend">{"Choose color"}</LabelText>
@@ -92,7 +106,10 @@ const Settings = ({
   );
   const typeSettings = (
     <Fieldset>
-      <LabelText as="legend">{"Door type"}</LabelText>
+      <LabelText as="legend">
+        {"Door type"}
+        <Info onClick={() => setModalOpen(true)} />
+      </LabelText>
       <Divider />
       {Object.keys(DOOR_TYPES).map(doorType => (
         <React.Fragment key={DOOR_TYPES[doorType].value}>
@@ -145,13 +162,25 @@ const Settings = ({
         <label htmlFor="beams">
           <LabelText>{"Number of beams"}</LabelText>
         </label>
-        <SpinnerInput value={beams} max={100} name="beams" />
+        <SpinnerInput
+          onChange={setDoorBeams}
+          value={beams}
+          max={STRUCTURE.BEAMS.max}
+          min={STRUCTURE.BEAMS.min}
+          name="beams"
+        />
       </Field>
       <Field>
         <label htmlFor="posts">
           <LabelText>{"Number of posts"}</LabelText>
         </label>
-        <SpinnerInput value={posts} max={100} name="posts" />
+        <SpinnerInput
+          onChange={setDoorPosts}
+          value={posts}
+          max={STRUCTURE.POSTS.max}
+          min={STRUCTURE.POSTS.min}
+          name="posts"
+        />
       </Field>
     </DivisionFieldset>
   );
@@ -166,6 +195,7 @@ const Settings = ({
       {settingsToDisplay.map(setting => (
         <React.Fragment key={setting}>{settings[setting]}</React.Fragment>
       ))}
+      {modalOpen && <Modal>HEHEHHE</Modal>}
     </Wrapper>
   );
 };

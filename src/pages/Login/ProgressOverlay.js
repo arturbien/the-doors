@@ -8,25 +8,14 @@ import Modal from "../../shared/Modal";
 const ProgressOverlay = ({ message }) => {
   return (
     <Modal>
-      <Backdrop>
-        <Center>
-          {message && <Message>{message}</Message>}
-          <Progress />
-        </Center>
-      </Backdrop>
+      <Center>
+        {message && <Message>{message}</Message>}
+        <Progress />
+      </Center>
     </Modal>
   );
 };
 export default ProgressOverlay;
-
-const Backdrop = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: rgba(173, 178, 181, 0.83);
-`;
 
 const Center = styled.div`
   position: absolute;

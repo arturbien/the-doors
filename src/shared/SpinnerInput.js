@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import NumberInput from "./NumberInput";
@@ -24,21 +24,24 @@ const Button = styled.button`
   font-weight: normal;
 `;
 
-const Spinner = ({ onChange, initialValue, min, max, ...otherProps }) => {
-  const [val, setVal] = useState(initialValue);
-
-  const handleChange = value => {
-    if ((max && value > max) || (min && value < min)) {
+const Spinner = ({ onChange, value, min, max, ...otherProps }) => {
+  const handleChange = val => {
+    val = parseInt(val);
+    if ((max !== undefined && val > max) || (min !== undefined && val < min)) {
       return;
     } else {
-      setVal(value);
+      onChange(val);
     }
   };
   return (
     <Wrapper>
-      <NumberInput value={val} {...otherProps} />
-      <Button onClick={() => handleChange(val + 1)}>+</Button>
-      <Button onClick={() => handleChange(val - 1)}>-</Button>
+      <NumberInput
+        onChange={e => handleChange(e.target.value)}
+        value={value}
+        {...otherProps}
+      />
+      <Button onClick={() => handleChange(value + 1)}>+</Button>
+      <Button onClick={() => handleChange(value - 1)}>-</Button>
     </Wrapper>
   );
 };

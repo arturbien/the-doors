@@ -1,4 +1,7 @@
-import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../actions/actionTypes";
+import {
+  LOGIN_SUCCESS
+  // LOGOUT_SUCCESS
+} from "../actions/actionTypes";
 
 import { saveState, loadState } from "../localStorage";
 

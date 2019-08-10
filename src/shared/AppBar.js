@@ -26,7 +26,7 @@ const AppBar = ({ left, right, ...otherProps }) => (
           <Logo style={{ height: 47, marginTop: -1.5 }} />
         </a>
       </div>
-      <div>hey</div>
+      {right && <div>{right}</div>}
     </Center>
   </Wrapper>
 );

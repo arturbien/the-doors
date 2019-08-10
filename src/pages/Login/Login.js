@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
 
+import { connect } from "react-redux";
 import { login } from "../../store/actions/user";
 import { dismissLoginError } from "../../store/actions/errors";
-
-import AppBar from "../../shared/AppBar";
 
 import ProgressOverlay from "./ProgressOverlay";
 
 import TextField from "../../shared/TextField";
 import Checkbox from "../../shared/Checkbox";
 import Snackbar from "../../shared/Snackbar";
+import AppBar from "../../shared/AppBar";
 
 const Login = ({ login, loading, error, dismissLoginError }) => {
   const [email, setEmail] = useState("login@applover.pl");
@@ -21,34 +20,37 @@ const Login = ({ login, loading, error, dismissLoginError }) => {
     <div>
       <AppBar />
       <Wrapper>
+        <Heading>Log in</Heading>
         <form>
-          <Heading>Log in</Heading>
-          <TextField
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            placeholder="Email adress"
-            type="email"
-          />
-          <TextField
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            placeholder="Password"
-            type="password"
-          />
-          <Checkbox
-            checked={remember}
-            onChange={() => setRemember(!remember)}
-            label="Keep me logged in"
-            style={{ marginTop: 3 }}
-          />
-          <LoginButton
-            onClick={e => {
-              e.preventDefault();
-              login({ email, password, remember });
-            }}
-          >
-            Login
-          </LoginButton>
+          {/* disabled fieldset makes all inputs inside disabled */}
+          <fieldset disabled={loading}>
+            <TextField
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="Email adress"
+              type="email"
+            />
+            <TextField
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="Password"
+              type="password"
+            />
+            <Checkbox
+              checked={remember}
+              onChange={() => setRemember(!remember)}
+              label="Keep me logged in"
+              style={{ marginTop: 3 }}
+            />
+            <LoginButton
+              onClick={e => {
+                e.preventDefault();
+                login({ email, password, remember });
+              }}
+            >
+              Login
+            </LoginButton>
+          </fieldset>
         </form>
         {loading && !error && <ProgressOverlay message={"Processing..."} />}
         {error && (
@@ -85,6 +87,10 @@ const Wrapper = styled.div`
   margin-top: 89px;
   margin-left: auto;
   margin-right: auto;
+
+  fieldset {
+    border: none;
+  }
 `;
 const Heading = styled.h3`
   margin-bottom: 56px;

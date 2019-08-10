@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Login from "./pages/Login/Login";
+import Design from "./pages/Design/Design";
 function App({ user }) {
   return (
     <>
@@ -11,12 +12,12 @@ function App({ user }) {
         <>
           {user ? (
             <Switch>
-              <Route exact path={"/"} component={() => <h1>hey!</h1>} />
+              <Route exact path={"/"} component={Design} />
               <Redirect from={"/login"} to={"/"} />
             </Switch>
           ) : (
             <Switch>
-              <Route exact path={"/login"} component={() => <Login />} />
+              <Route exact path={"/login"} component={Login} />
               <Redirect to={"/login"} />
             </Switch>
           )}

@@ -20,6 +20,11 @@ export const DIMENSIONS = {
     default: 240,
     min: 0,
     max: 300
+  },
+  THICKNESS: {
+    default: 4,
+    min: 2,
+    max: 15
   }
 };
 

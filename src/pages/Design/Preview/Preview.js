@@ -1,37 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { connect } from "react-redux";
-import {
-  DIMENSIONS
-  // STRUCTURE
-} from "../../../config";
 
-const structureWidth = 5;
+import View2D from "./View2D";
 
-const Door = styled.div`
+import ButtonSwitch from "../../../shared/ButtonSwitch";
+
+const Wrapper = styled.section`
   position: relative;
-  height: ${({ height }) => (height / DIMENSIONS.HEIGHT.max) * 100}%;
-  width: 100px;
-  border: ${structureWidth}px solid ${({ color }) => color};
-  margin: 0 10px;
-`;
-const DoorWrapper = styled.div`
   height: 100%;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
-const TwoDimensional = ({ type, ...otherProps }) => (
-  <DoorWrapper>
-    {[...new Array(type)].map((n, i) => (
-      <Door key={i} {...otherProps} />
-    ))}
-  </DoorWrapper>
-);
-const Preview = props => <TwoDimensional {...props} />;
+const Nav = styled.nav`
+  position: absolute;
+  top: 20px;
+  right: 35px;
+`;
+const Preview = props => {
+  const [is2D, set2D] = useState(true);
+
+  return (
+    <Wrapper>
+      {is2D ? <View2D {...props} /> : <h1>swag</h1>}
+      <Nav>
+        <ButtonSwitch
+          onChange={set2D}
+          options={[{ name: "3D", value: false }, { name: "2D", value: true }]}
+          defaultActiveIndex={1}
+        />
+      </Nav>
+    </Wrapper>
+  );
+};
 
 const mapStateToProps = state => {
   const { width, height, color, posts, beams, type } = state.configurator;

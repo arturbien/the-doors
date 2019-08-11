@@ -45,24 +45,26 @@ const StepperNav = styled.nav`
   }
 `;
 
+const steps = [
+  "step 1\nchoose door",
+  "step 2\nchoose door division",
+  "step 3\nchoose color"
+];
+const settingsToDisplay = [
+  ["DOOR_TYPE", "DOOR_SIZE"],
+  ["DOOR_DIVISION"],
+  ["DOOR_COLOR"]
+];
+
 const Design = () => {
   const [step, setStep] = useState(0);
 
-  const steps = [
-    `step 1\nchoose door`,
-    "step 2\nchoose door division",
-    "step 3\nchoose color"
-  ];
   const handleChangeStep = index => {
     if (index !== step && index >= 0 && index <= steps.length - 1) {
       setStep(index);
     }
   };
-  const settingsToDisplay = [
-    ["DOOR_TYPE", "DOOR_SIZE"],
-    ["DOOR_DIVISION"],
-    ["DOOR_COLOR"]
-  ];
+
   return (
     <>
       <AppBar />

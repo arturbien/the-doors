@@ -23,6 +23,7 @@ import Divider from "../../../shared/Divider";
 import LabelText from "../../../shared/LabelText";
 import NumberInput from "../../../shared/NumberInput";
 import SpinnerInput from "../../../shared/SpinnerInput";
+import CloseButton from "../../../shared/CloseButton";
 
 const Wrapper = styled.div`
   display: flex;
@@ -74,6 +75,35 @@ const Suffix = styled(LabelText)`
   margin-left: 5px;
 `;
 
+const InfoWrapper = styled.div`
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 813px;
+  height: 432px;
+  background: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(121, 152, 176, 1);
+`;
+const InfoHeader = styled.header`
+  width: 100%;
+  height: 80px;
+  padding: 40px 90px 29px 29px;
+
+  ${CloseButton} {
+    position: absolute;
+    top: 20px;
+    right: 41px;
+  }
+`;
+const InfoHeading = styled.h4`
+  font-size: 24px;
+  line-height: 32px;
+  color: rgba(111, 145, 170, 1);
+  padding-bottom: 7px;
+  margin: 0;
+  border-bottom: 1px solid rgba(111, 145, 170, 1);
+`;
 const Settings = ({
   // from the outside
   settingsToDisplay,
@@ -91,24 +121,13 @@ const Settings = ({
   setDoorBeams,
   setDoorType
 }) => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [typeInfoOpen, setTypeInfoOpen] = useState(false);
 
-  const colorSettings = (
-    <Fieldset>
-      <LabelText as="legend">{"Choose color"}</LabelText>
-      <Divider />
-      <ColorsSelect
-        colors={Object.keys(COLORS).map(colorID => COLORS[colorID])}
-        activeColor={color}
-        onChange={setDoorColor}
-      />
-    </Fieldset>
-  );
   const typeSettings = (
     <Fieldset>
       <LabelText as="legend">
         {"Door type"}
-        <Info onClick={() => setModalOpen(true)} />
+        <Info onClick={() => setTypeInfoOpen(true)} />
       </LabelText>
       <Divider />
       {Object.keys(DOOR_TYPES).map(doorType => (
@@ -123,6 +142,19 @@ const Settings = ({
           <br />
         </React.Fragment>
       ))}
+      {typeInfoOpen && (
+        <Modal>
+          <InfoWrapper>
+            <InfoHeader>
+              <InfoHeading>{"Door type"}</InfoHeading>
+              <CloseButton
+                onClick={() => setTypeInfoOpen(false)}
+                color="rgba(111, 145, 170, 1)"
+              />
+            </InfoHeader>
+          </InfoWrapper>
+        </Modal>
+      )}
     </Fieldset>
   );
   const sizeSettings = (
@@ -184,6 +216,18 @@ const Settings = ({
       </Field>
     </DivisionFieldset>
   );
+  const colorSettings = (
+    <Fieldset>
+      <LabelText as="legend">{"Choose color"}</LabelText>
+      <Divider />
+      <ColorsSelect
+        colors={Object.keys(COLORS).map(colorID => COLORS[colorID])}
+        activeColor={color}
+        onChange={setDoorColor}
+      />
+    </Fieldset>
+  );
+
   const settings = {
     DOOR_TYPE: typeSettings,
     DOOR_SIZE: sizeSettings,
@@ -195,7 +239,6 @@ const Settings = ({
       {settingsToDisplay.map(setting => (
         <React.Fragment key={setting}>{settings[setting]}</React.Fragment>
       ))}
-      {modalOpen && <Modal>HEHEHHE</Modal>}
     </Wrapper>
   );
 };

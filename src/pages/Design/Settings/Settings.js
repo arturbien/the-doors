@@ -15,11 +15,10 @@ import { DOOR_TYPES, COLORS, STRUCTURE } from "../../../config";
 
 import TypeInfo from "./TypeInfo";
 
-import ColorsSelect from "../ColorsSelect";
-
 import Radio from "../../../shared/components/Radio";
 import Divider from "../../../shared/components/Divider";
 import LabelText from "../../../shared/components/LabelText";
+import ColorSelect from "../../../shared/components/ColorSelect";
 import NumberInput from "../../../shared/components/NumberInput";
 import SpinnerInput from "../../../shared/components/SpinnerInput";
 
@@ -124,7 +123,7 @@ const Settings = ({
     <Fieldset>
       <LabelText as="legend">{"Choose color"}</LabelText>
       <Divider />
-      <ColorsSelect
+      <ColorSelect
         colors={Object.keys(COLORS).map(colorID => COLORS[colorID])}
         activeColor={color}
         onChange={setDoorColor}

@@ -55,6 +55,7 @@ const Login = ({ login, loading, error, dismissLoginError }) => {
         {loading && !error && <ProgressOverlay message={"Processing..."} />}
         {error && (
           <Snackbar
+            variant="error"
             message="Invalid email or password"
             onClose={dismissLoginError}
           />

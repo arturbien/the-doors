@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import Radio from "../../shared/components/Radio";
-import LabelText from "../../shared/components/LabelText";
+import Radio from "./Radio";
+import LabelText from "./LabelText";
 
 const Colors = styled.div`
   display: flex;

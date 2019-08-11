@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Preview from "./Preview/Preview";
 import Settings from "./Settings/Settings";
+import ShareButton from "./ShareButton";
 
 import AppBar from "../../shared/components/AppBar";
 import Stepper from "../../shared/components/Stepper";
@@ -42,16 +43,28 @@ const Design = () => {
             </PreviewWrapper>
             <Sidebar>
               <Settings settingsToDisplay={settingsToDisplay[step]} />
-              <StepperNav>
-                {step > 0 && (
-                  <RectButton onClick={() => handleChangeStep(step - 1)}>
-                    back
-                  </RectButton>
+
+              <div>
+                {step === steps.length - 1 && (
+                  <Share>
+                    <ShareButton>share</ShareButton>
+                  </Share>
                 )}
-                <RectButton onClick={() => handleChangeStep(step + 1)} primary>
-                  next step
-                </RectButton>
-              </StepperNav>
+
+                <StepperNav>
+                  {step > 0 && (
+                    <RectButton onClick={() => handleChangeStep(step - 1)}>
+                      back
+                    </RectButton>
+                  )}
+                  <RectButton
+                    onClick={() => handleChangeStep(step + 1)}
+                    primary
+                  >
+                    next step
+                  </RectButton>
+                </StepperNav>
+              </div>
             </Sidebar>
           </Configurator>
         </div>
@@ -99,4 +112,9 @@ const StepperNav = styled.nav`
   ${RectButton}:first-child {
     margin-right: 14px;
   }
+`;
+const Share = styled.div`
+  position: relative;
+  top: -20px;
+  padding-left: 5px;
 `;

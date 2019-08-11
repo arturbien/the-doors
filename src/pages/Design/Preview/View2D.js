@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { DIMENSIONS } from "../../../config";
+import { DOOR_TYPES, COLORS, DIMENSIONS, STRUCTURE } from "../../../config";
 
 import useDimensions from "../../../hooks/useDimensions";
 
@@ -20,13 +20,21 @@ const Door = ({ color, width, height, thickness, beams, posts }) => (
   </DoorFrame>
 );
 
-const View = ({ type, width, height, ...otherProps }) => {
+const View = ({
+  type = DOOR_TYPES.SINGLE.value,
+  color = COLORS.BLACK.value,
+  width = DIMENSIONS.WIDTH.default,
+  height = DIMENSIONS.HEIGHT.default,
+  thickness = DIMENSIONS.THICKNESS.default,
+  beams = STRUCTURE.BEAMS.default,
+  posts = STRUCTURE.POSTS.default
+}) => {
   const [node, dimensions] = useDimensions();
-  const scale = dimensions.height / DIMENSIONS.HEIGHT.max;
+  const scale = (dimensions.height * 0.7 || 300) / DIMENSIONS.HEIGHT.max;
   let w = scale * width;
   let h = scale * height;
-  let thickness = scale * DIMENSIONS.THICKNESS.default;
-
+  let t = scale * thickness;
+  console.log(width, height, dimensions);
   return (
     <Wrapper ref={node}>
       {[...new Array(type)].map((_, i) => (
@@ -34,8 +42,10 @@ const View = ({ type, width, height, ...otherProps }) => {
           key={i}
           width={w}
           height={h}
-          thickness={thickness}
-          {...otherProps}
+          thickness={t}
+          color={color}
+          beams={beams}
+          posts={posts}
         />
       ))}
     </Wrapper>
@@ -49,7 +59,7 @@ const DoorFrame = styled.div`
   height: ${({ h }) => (h / DIMENSIONS.HEIGHT.max) * 100}%;
   width: 100px;
   border: ${({ thickness }) => thickness}px solid ${({ color }) => color};
-  margin: 0 10px;
+  margin: 0 ${({ thickness }) => thickness / 10}px;
 
   div:first-child,
   div:last-child {

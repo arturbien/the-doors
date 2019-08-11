@@ -15,15 +15,15 @@ const Wrapper = styled.section`
 
 const Nav = styled.nav`
   position: absolute;
-  top: 20px;
-  right: 35px;
+  top: 0;
+  right: 0;
 `;
 const Preview = props => {
   const [is2D, set2D] = useState(true);
 
   return (
     <Wrapper>
-      {is2D ? <View2D {...props} /> : <h1>swag</h1>}
+      {is2D ? <View2D {...props} /> : null}
       <Nav>
         <ButtonSwitch
           onChange={set2D}

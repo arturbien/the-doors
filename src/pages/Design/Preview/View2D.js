@@ -20,6 +20,19 @@ const Door = ({ color, width, height, thickness, beams, posts }) => (
   </DoorFrame>
 );
 
+const Dimensions = ({ type, width, height, offset = 30 }) => (
+  <DimensionsWrapper offset={offset} type={type}>
+    <div>
+      <span>{type * width}</span>
+    </div>
+    <div>
+      <span>{width}</span>
+    </div>
+    <div>
+      <span>{height}</span>
+    </div>
+  </DimensionsWrapper>
+);
 const View = ({
   type = DOOR_TYPES.SINGLE.value,
   color = COLORS.BLACK.value,
@@ -35,19 +48,22 @@ const View = ({
   let h = scale * height;
   let t = scale * thickness;
   return (
-    <Wrapper ref={node}>
-      {[...new Array(type)].map((_, i) => (
-        <Door
-          key={i}
-          width={w}
-          height={h}
-          thickness={t}
-          color={color}
-          beams={beams}
-          posts={posts}
-        />
-      ))}
-    </Wrapper>
+    <ViewWrapper ref={node}>
+      <ViewInner>
+        <Dimensions type={type} width={width} height={height} />
+        {[...new Array(type)].map((_, i) => (
+          <Door
+            key={i}
+            width={w}
+            height={h}
+            thickness={t}
+            color={color}
+            beams={beams}
+            posts={posts}
+          />
+        ))}
+      </ViewInner>
+    </ViewWrapper>
   );
 };
 
@@ -90,10 +106,86 @@ const DoorFrame = styled.div`
     }
   }
 `;
-const Wrapper = styled.div`
+const ViewWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
+`;
+const ViewInner = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+`;
+
+const DimensionsWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  div:nth-child(1),
+  div:nth-child(2),
+  div:nth-child(3) {
+    position: absolute;
+
+    &:after {
+      content: "";
+      position: absolute;
+      background: rgba(112, 112, 112, 1);
+    }
+  }
+  div:nth-child(1) {
+    top: 0;
+    width: 100%;
+    transform: translateY(-${({ offset }) => offset}px);
+  }
+  div:nth-child(2) {
+    bottom: 0;
+    width: ${({ type }) => (type === 1 ? 100 : 100 / type)}%;
+    transform: translateY(${({ offset }) => offset}px);
+  }
+  div:nth-child(1),
+  div:nth-child(2) {
+    height: 13px;
+    border-left: 2px solid rgba(112, 112, 112, 1);
+    border-right: 2px solid rgba(112, 112, 112, 1);
+    &:after {
+      top: 6px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+    }
+  }
+  div:nth-child(3) {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 13px;
+    transform: translateX(-${({ offset }) => offset}px);
+    border-top: 2px solid rgba(112, 112, 112, 1);
+    border-bottom: 2px solid rgba(112, 112, 112, 1);
+    &:after {
+      left: 6px;
+      top: 0;
+      height: 100%;
+      width: 1px;
+    }
+  }
+  div > span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    display: inline-block;
+    padding: 3px 6px 1px 6px;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(112, 112, 112, 1);
+
+    font-size: 12px;
+    color: rgba(132, 140, 147, 1);
+  }
 `;

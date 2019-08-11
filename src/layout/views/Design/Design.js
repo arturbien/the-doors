@@ -5,9 +5,8 @@ import Preview from "./Preview/Preview";
 import Settings from "./Settings/Settings";
 import ShareButton from "./ShareButton";
 
-import AppBar from "../../shared/components/AppBar";
-import Stepper from "../../shared/components/Stepper";
-import RectButton from "../../shared/components/RectButton";
+import Stepper from "../../../shared/components/Stepper";
+import RectButton from "../../../shared/components/RectButton";
 
 const steps = [
   "step 1\nchoose door",
@@ -30,8 +29,6 @@ const Design = () => {
   };
 
   return (
-    <>
-      <AppBar />
       <Main>
         <div>
           <Stepper steps={steps} activeStep={step} />
@@ -69,7 +66,6 @@ const Design = () => {
           </Configurator>
         </div>
       </Main>
-    </>
   );
 };
 

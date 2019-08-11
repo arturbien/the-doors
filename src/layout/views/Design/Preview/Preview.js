@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import View2D from "./View2D";
 
-import ButtonSwitch from "../../../shared/components/ButtonSwitch";
+import ButtonSwitch from "../../../../shared/components/ButtonSwitch";
 
 const Wrapper = styled.section`
   position: relative;

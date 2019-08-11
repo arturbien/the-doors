@@ -9,18 +9,18 @@ import {
   setDoorPosts,
   setDoorBeams,
   setDoorType
-} from "../../../store/actions/configurator";
+} from "../../../../store/actions/configurator";
 
-import { DOOR_TYPES, COLORS, STRUCTURE } from "../../../config";
+import { DOOR_TYPES, COLORS, STRUCTURE } from "../../../../config";
 
 import TypeInfo from "./TypeInfo";
 
-import Radio from "../../../shared/components/Radio";
-import Divider from "../../../shared/components/Divider";
-import LabelText from "../../../shared/components/LabelText";
-import ColorSelect from "../../../shared/components/ColorSelect";
-import NumberInput from "../../../shared/components/NumberInput";
-import SpinnerInput from "../../../shared/components/SpinnerInput";
+import Radio from "../../../../shared/components/Radio";
+import Divider from "../../../../shared/components/Divider";
+import LabelText from "../../../../shared/components/LabelText";
+import ColorSelect from "../../../../shared/components/ColorSelect";
+import NumberInput from "../../../../shared/components/NumberInput";
+import SpinnerInput from "../../../../shared/components/SpinnerInput";
 
 const Settings = ({
   // from the outside

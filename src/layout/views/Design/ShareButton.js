@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import Snackbar from "../../shared/components/Snackbar";
+import Snackbar from "../../../shared/components/Snackbar";
 
 function encodeData(data) {
   return Object.keys(data)
@@ -32,13 +32,12 @@ const ShareButton = ({
     beams,
     type
   })}`;
-  console.log(link);
 
   const handleClick = () => {
+    setShowToast(true);
     input.current.select();
     console.log(input.current);
     document.execCommand("copy");
-    setShowToast(true);
   };
 
   return (

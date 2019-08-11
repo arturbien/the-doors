@@ -2,8 +2,9 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
-  LOGOUT_REQUEST,
-  LOGOUT_SUCCESS
+  FETCH_ORGANIZATION_REQUEST,
+  FETCH_ORGANIZATION_SUCCESS,
+  FETCH_ORGANIZATION_ERROR
 } from "./actionTypes";
 
 import API from "../../API";
@@ -13,22 +14,46 @@ export function login({ email, password, remember }) {
     dispatch({ type: LOGIN_REQUEST });
     try {
       // TODO catch errors
-      await API.login({ email, password });
-      return dispatch({ type: LOGIN_SUCCESS, payload: { email, remember } });
+      const response = await API.login({ email, password });
+      const { token } = response.data;
+      return dispatch({
+        type: LOGIN_SUCCESS,
+        payload: { email, token, remember }
+      });
     } catch (err) {
-      dispatch({ type: LOGIN_ERROR });
+      console.log("💖💖💖", err);
+      const statusCode = err.response.status;
+      let message;
+      switch (statusCode) {
+        case 500:
+          message = "Something went wrong with our server. 😥 Try again.";
+          break;
+        default:
+          message = "Incorrect login or password.";
+          break;
+      }
+      dispatch({ type: LOGIN_ERROR, payload: message });
     }
   };
 }
 
-export function logout() {
-  return async dispatch => {
-    dispatch({ typeL: LOGOUT_REQUEST });
+export function fetchOrganization() {
+  return async (dispatch, getState) => {
+    // TODO
+    const token = getState().user.token;
+
+    dispatch({ type: FETCH_ORGANIZATION_REQUEST });
     try {
-      await API.logout();
+      // TODO catch errors
+      const response = await API.fetchOrganization({ token });
+      const data = response.data;
+      console.log(data);
+      return dispatch({
+        type: FETCH_ORGANIZATION_SUCCESS,
+        payload: data
+      });
     } catch (err) {
-      console.log("logout error in middleware 🤖");
+      dispatch({ type: FETCH_ORGANIZATION_ERROR });
     }
-    return dispatch({ type: LOGOUT_SUCCESS });
   };
 }

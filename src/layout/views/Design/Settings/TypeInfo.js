@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { DOOR_TYPES } from "../../../config";
+import { DOOR_TYPES } from "../../../../config";
 
-import Modal from "../../../shared/components/Modal";
+import Modal from "../../../../shared/components/Modal";
 import View2D from "../Preview/View2D";
-import InfoIMG from "../../../assets/images/icon.svg";
+import InfoIMG from "../../../../assets/images/icon.svg";
 
-import CloseButton from "../../../shared/components/CloseButton";
+import CloseButton from "../../../../shared/components/CloseButton";
 
 const TypeInfo = () => {
   const [infoOpen, setInfoOpen] = useState(false);
@@ -29,7 +29,10 @@ const TypeInfo = () => {
                 <div key={doorType}>
                   <DoorTypePreview>
                     <h5>{DOOR_TYPES[doorType].name}</h5>
-                    <View2D type={DOOR_TYPES[doorType].value} />
+                    <View2D
+                      type={DOOR_TYPES[doorType].value}
+                      showDimensions={false}
+                    />
                   </DoorTypePreview>
                 </div>
               ))}
@@ -84,7 +87,7 @@ const InfoHeading = styled.h4`
 `;
 const InfoBody = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   padding: 30px;
 `;
 const DoorTypePreview = styled.div`

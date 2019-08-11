@@ -6,15 +6,25 @@ class API {
     this.axios = axios.create({
       baseURL: BASE_URL
     });
+    this.token = null;
   }
 
   login = async ({ email, password }) => {
-    // try {
-    await this.axios.post("api/v1/login", {
+    const response = await this.axios.post("api/v1/login", {
       email,
       password
     });
-    // } catch (err) {}
+    this.token = response.data.token;
+    return response;
+  };
+
+  fetchOrganization = async ({ token }) => {
+    const response = await this.axios.get("api/v1/organization", {
+      headers: {
+        Authorization: token
+      }
+    });
+    return response;
   };
 }
 

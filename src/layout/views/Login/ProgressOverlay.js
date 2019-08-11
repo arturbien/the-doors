@@ -2,8 +2,8 @@ import React from "react";
 
 import styled from "styled-components";
 
-import FakeProgress from "../../shared/components/FakeProgress";
-import Modal from "../../shared/components/Modal";
+import FakeProgress from "../../../shared/components/FakeProgress";
+import Modal from "../../../shared/components/Modal";
 
 const ProgressOverlay = ({ message }) => {
   return (

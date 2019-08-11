@@ -1,21 +1,33 @@
 import {
-  LOGIN_SUCCESS
+  LOGIN_SUCCESS,
+  FETCH_ORGANIZATION_SUCCESS
+  // FETCH_ORGANIZATION_REQUEST,
+  // FETCH_ORGANIZATION_ERROR,
   // LOGOUT_SUCCESS
 } from "../actions/actionTypes";
 
 import { saveState, loadState } from "../localStorage";
 
-const LOCAL_STORAGE_KEY = "user";
+const EMAIL_KEY = "email";
+const TOKEN_KEY = "token";
 
-const initialState = loadState(LOCAL_STORAGE_KEY) || null;
+const initialState = {
+  email: loadState(EMAIL_KEY) || null,
+  token: loadState(TOKEN_KEY) || null,
+  organization: null
+};
 
-// TODO save login token to state
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      const { email, remember } = action.payload;
-      remember && saveState(LOCAL_STORAGE_KEY, email);
-      return email;
+      const { email, token, remember } = action.payload;
+      if (remember) {
+        saveState(EMAIL_KEY, email);
+        saveState(TOKEN_KEY, token);
+      }
+      return { ...state, email, token };
+    case FETCH_ORGANIZATION_SUCCESS:
+      return { ...state, organization: action.payload };
     default:
       return state;
   }

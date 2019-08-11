@@ -2,8 +2,8 @@ import React from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 
-import useRootBlur from "../../hooks/useRootBlur";
-import usePortal from "../../hooks/usePortal";
+import useRootBlur from "../hooks/useRootBlur";
+import usePortal from "../hooks/usePortal";
 
 const Backdrop = styled.div`
   position: fixed;
@@ -11,7 +11,7 @@ const Backdrop = styled.div`
   left: 0;
   height: 100%;
   width: 100%;
-  background: rgba(173, 178, 181, 0.83);
+  background: rgba(173, 178, 181, 0.5);
 `;
 
 const Modal = ({ children }) => {

@@ -3,14 +3,18 @@ import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import Login from "./pages/Login/Login";
-import Design from "./pages/Design/Design";
-function App({ user }) {
+import Login from "./layout/views/Login/Login";
+import Design from "./layout/views/Design/Design";
+import AppBar from "./layout/AppBar";
+import { fetchOrganization } from "./store/actions/user";
+
+function App({ user, fetchOrganization }) {
   return (
     <>
       <BrowserRouter>
         <>
-          {user ? (
+          <AppBar user={user} fetchOrganization={fetchOrganization} />
+          {user.email ? (
             <Switch>
               <Route exact path={"/"} component={Design} />
               <Redirect from={"/login"} to={"/"} />
@@ -32,8 +36,10 @@ const mapStateToProps = state => {
     user: state.user
   };
 };
-
+const mapDispatchToProps = dispatch => ({
+  fetchOrganization: () => dispatch(fetchOrganization())
+});
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(App);

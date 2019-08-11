@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-import { DOOR_TYPES, COLORS, DIMENSIONS, STRUCTURE } from "../../../config";
+import { DOOR_TYPES, COLORS, DIMENSIONS, STRUCTURE } from "../../../../config";
 
-import useDimensions from "../../../hooks/useDimensions";
+import useDimensions from "../../../../shared/hooks/useDimensions";
 
 const Door = ({ color, width, height, thickness, beams, posts }) => (
   <DoorFrame color={color} style={{ width, height }} thickness={thickness}>
@@ -40,7 +40,8 @@ const View = ({
   height = DIMENSIONS.HEIGHT.default,
   thickness = DIMENSIONS.THICKNESS.default,
   beams = STRUCTURE.BEAMS.default,
-  posts = STRUCTURE.POSTS.default
+  posts = STRUCTURE.POSTS.default,
+  showDimensions = true
 }) => {
   const [node, dimensions] = useDimensions();
   const scale = (dimensions.height * 0.7 || 260) / DIMENSIONS.HEIGHT.max;
@@ -50,7 +51,9 @@ const View = ({
   return (
     <ViewWrapper ref={node}>
       <ViewInner>
-        <Dimensions type={type} width={width} height={height} />
+        {showDimensions && (
+          <Dimensions type={type} width={width} height={height} />
+        )}
         {[...new Array(type)].map((_, i) => (
           <Door
             key={i}
@@ -143,8 +146,9 @@ const DimensionsWrapper = styled.div`
     transform: translateY(-${({ offset }) => offset}px);
   }
   div:nth-child(2) {
+    display: ${({ type }) => (type === 1 ? "none" : "initial")};
     bottom: 0;
-    width: ${({ type }) => (type === 1 ? 100 : 100 / type)}%;
+    width: ${({ type }) => 100 / type}%;
     transform: translateY(${({ offset }) => offset}px);
   }
   div:nth-child(1),

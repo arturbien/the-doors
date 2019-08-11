@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import usePortal from "../../hooks/usePortal";
 
 import styled from "styled-components";
 
@@ -10,6 +9,7 @@ const Snackbar = ({ message, variant, onClose }) => {
   let wrapper = useRef();
   useEffect(() => {
     const current = wrapper.current;
+    console.log("asd");
     current.style.transform = "translateY(0)";
     return () => (current.style.transform = "");
   }, []);
@@ -31,6 +31,7 @@ export default Snackbar;
 
 const Wrapper = styled.div`
   position: fixed;
+  z-index: 999;
   left: 0;
   top: 0;
   right: 0;
@@ -42,14 +43,15 @@ const Wrapper = styled.div`
   height: 80px;
   background: ${({ variant }) =>
     variant === "error" ? "rgba(242, 78, 51, 1)" : "rgba(29, 226, 120, 1)"};
-  transition: 0.2s all;
+  box-shadow: 0 6px 9px rgba(0, 0, 0, 0.14);
+
+  transition: 0.2s transform ease-in-out;
   transform: translateY(-100%);
 
   ${CloseButton} {
     position: absolute;
     right: 31px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 32px;
   }
 `;
 const Message = styled.span`

@@ -23,6 +23,10 @@ const CloseButton = styled.button`
   &:after {
     transform: rotate(-45deg);
   }
+  transition: 0.1s all;
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 
 export default CloseButton;

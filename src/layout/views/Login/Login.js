@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { connect } from "react-redux";
-import { login } from "../../store/actions/user";
-import { dismissLoginError } from "../../store/actions/errors";
+import { login } from "../../../store/actions/user";
+import { dismissLoginError } from "../../../store/actions/errors";
 
 import ProgressOverlay from "./ProgressOverlay";
 
-import TextField from "../../shared//components/TextField";
-import Checkbox from "../../shared/components/Checkbox";
-import Snackbar from "../../shared/components/Snackbar";
-import AppBar from "../../shared/components/AppBar";
+import TextField from "../../../shared/components/TextField";
+import Checkbox from "../../../shared/components/Checkbox";
+import Snackbar from "../../../shared/components/Snackbar";
 
 const Login = ({ login, loading, error, dismissLoginError }) => {
   const [email, setEmail] = useState("login@applover.pl");
@@ -18,7 +17,6 @@ const Login = ({ login, loading, error, dismissLoginError }) => {
   const [remember, setRemember] = useState(false);
   return (
     <div>
-      <AppBar />
       <Wrapper>
         <Heading>Log in</Heading>
         <form>

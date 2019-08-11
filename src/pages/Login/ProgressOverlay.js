@@ -2,15 +2,15 @@ import React from "react";
 
 import styled from "styled-components";
 
-import Progress from "../../shared/Progress";
-import Modal from "../../shared/Modal";
+import FakeProgress from "../../shared/components/FakeProgress";
+import Modal from "../../shared/components/Modal";
 
 const ProgressOverlay = ({ message }) => {
   return (
     <Modal>
       <Center>
         {message && <Message>{message}</Message>}
-        <Progress />
+        <FakeProgress />
       </Center>
     </Modal>
   );

@@ -30,11 +30,10 @@ const View = ({
   posts = STRUCTURE.POSTS.default
 }) => {
   const [node, dimensions] = useDimensions();
-  const scale = (dimensions.height * 0.7 || 300) / DIMENSIONS.HEIGHT.max;
+  const scale = (dimensions.height * 0.7 || 260) / DIMENSIONS.HEIGHT.max;
   let w = scale * width;
   let h = scale * height;
   let t = scale * thickness;
-  console.log(width, height, dimensions);
   return (
     <Wrapper ref={node}>
       {[...new Array(type)].map((_, i) => (

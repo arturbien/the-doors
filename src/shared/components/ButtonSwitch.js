@@ -31,7 +31,11 @@ const ButtonSwitch = ({ defaultActiveIndex, options, onChange }) => {
   return (
     <Wrapper>
       {options.map((option, i) => (
-        <Button active={i === activeIndex} onClick={() => handleChange(i)}>
+        <Button
+          active={i === activeIndex}
+          onClick={() => handleChange(i)}
+          key={i}
+        >
           {option.name}
         </Button>
       ))}

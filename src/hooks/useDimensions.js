@@ -5,7 +5,6 @@ function useDimensions() {
   const [dimensions, setDimensions] = useState({});
 
   useLayoutEffect(() => {
-    console.log("swag");
     setDimensions(ref.current.getBoundingClientRect());
   }, [ref]);
 

@@ -17,11 +17,11 @@ import TypeInfo from "./TypeInfo";
 
 import ColorsSelect from "../ColorsSelect";
 
-import Radio from "../../../shared/Radio";
-import Divider from "../../../shared/Divider";
-import LabelText from "../../../shared/LabelText";
-import NumberInput from "../../../shared/NumberInput";
-import SpinnerInput from "../../../shared/SpinnerInput";
+import Radio from "../../../shared/components/Radio";
+import Divider from "../../../shared/components/Divider";
+import LabelText from "../../../shared/components/LabelText";
+import NumberInput from "../../../shared/components/NumberInput";
+import SpinnerInput from "../../../shared/components/SpinnerInput";
 
 const Settings = ({
   // from the outside

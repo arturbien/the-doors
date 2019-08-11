@@ -1,14 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 import { Provider } from "react-redux";
 import store from "./store";
 
+import { createGlobalStyle } from "styled-components";
+import globalStyle from "./shared/globalStyle";
+
+const GlobalStyle = createGlobalStyle`
+  ${globalStyle}
+`;
+
 ReactDOM.render(
   <Provider store={store}>
+    <GlobalStyle />
     <App />
   </Provider>,
   document.getElementById("root")

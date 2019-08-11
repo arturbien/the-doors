@@ -2,8 +2,8 @@ import React from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 
-import useRootBlur from "../hooks/useRootBlur";
-import usePortal from "../hooks/usePortal";
+import useRootBlur from "../../hooks/useRootBlur";
+import usePortal from "../../hooks/usePortal";
 
 const Backdrop = styled.div`
   position: fixed;
@@ -16,9 +16,7 @@ const Backdrop = styled.div`
 
 const Modal = ({ children }) => {
   const target = usePortal();
-
   useRootBlur();
-
   return createPortal(<Backdrop>{children}</Backdrop>, target);
 };
 

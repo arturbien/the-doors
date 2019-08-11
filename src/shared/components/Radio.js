@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 const Label = styled.label`
   display: flex;
   align-items: center;
-  margin: 6px 0;
+  margin: 4px 0;
 `;
 const LabelText = styled.span`
   margin-left: 5px;

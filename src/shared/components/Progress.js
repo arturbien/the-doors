@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Outer = styled.div`
@@ -13,7 +13,7 @@ const Outer = styled.div`
 const Inner = styled.div`
   height: 100%;
   transition: 0.025s all ease-in-out;
-  width: 0%;
+  width: ${({ percent }) => percent}%;
 
   background: rgba(255, 255, 255, 1);
   border-radius: 40px;
@@ -27,21 +27,10 @@ const Percent = styled.span`
   color: rgba(255, 255, 255, 1);
   font-weight: normal;
 `;
-const Progress = ({ ...props }) => {
-  const [percent, setPercent] = useState(0);
-  const inner = useRef();
-  useEffect(() => {
-    const current = inner.current;
-    const fakeLoad = setTimeout(() => {
-      current.style.width = `${percent}%`;
-      setPercent(Math.min(percent + 2, 100));
-    }, 40);
-
-    return () => clearTimeout(fakeLoad);
-  }, [percent]);
+const Progress = ({ percent, ...otherProps }) => {
   return (
-    <Outer {...props}>
-      <Inner ref={inner} />
+    <Outer {...otherProps}>
+      <Inner percent={percent} />
       <Percent>{percent}%</Percent>
     </Outer>
   );

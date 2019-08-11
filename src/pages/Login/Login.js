@@ -7,10 +7,10 @@ import { dismissLoginError } from "../../store/actions/errors";
 
 import ProgressOverlay from "./ProgressOverlay";
 
-import TextField from "../../shared/TextField";
-import Checkbox from "../../shared/Checkbox";
-import Snackbar from "../../shared/Snackbar";
-import AppBar from "../../shared/AppBar";
+import TextField from "../../shared//components/TextField";
+import Checkbox from "../../shared/components/Checkbox";
+import Snackbar from "../../shared/components/Snackbar";
+import AppBar from "../../shared/components/AppBar";
 
 const Login = ({ login, loading, error, dismissLoginError }) => {
   const [email, setEmail] = useState("login@applover.pl");

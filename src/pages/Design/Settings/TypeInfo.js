@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { DOOR_TYPES } from "../../../config";
 
-import Modal from "../../../shared/Modal";
+import Modal from "../../../shared/components/Modal";
 import View2D from "../Preview/View2D";
 import InfoIMG from "../../../assets/images/icon.svg";
 
-import CloseButton from "../../../shared/CloseButton";
+import CloseButton from "../../../shared/components/CloseButton";
 
 const TypeInfo = () => {
   const [infoOpen, setInfoOpen] = useState(false);

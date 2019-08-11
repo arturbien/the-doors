@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import Settings from "./Settings/Settings";
 import Preview from "./Preview/Preview";
+import Settings from "./Settings/Settings";
 
-import AppBar from "../../shared/AppBar";
-import RectButton from "../../shared/RectButton";
-import Stepper from "../../shared/Stepper";
+import AppBar from "../../shared/components/AppBar";
+import Stepper from "../../shared/components/Stepper";
+import RectButton from "../../shared/components/RectButton";
 
 const steps = [
   "step 1\nchoose door",

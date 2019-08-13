@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+
+import { withTranslation } from "react-i18next";
+
 import { DOOR_TYPES } from "../../../../config";
 
 import Modal from "../../../../shared/components/Modal";
@@ -8,9 +11,15 @@ import InfoIMG from "../../../../assets/images/icon.svg";
 
 import CloseButton from "../../../../shared/components/CloseButton";
 
-const TypeInfo = () => {
+const TypeInfo = ({ t }) => {
   const [infoOpen, setInfoOpen] = useState(false);
 
+  const doorTypes = Object.keys(DOOR_TYPES).map(doorType => {
+    const doorObj = { ...DOOR_TYPES[doorType] };
+    doorObj.name = t(doorObj.name);
+    return doorObj;
+  });
+  console.log(doorTypes);
   return (
     <>
       <InfoIcon onClick={() => setInfoOpen(true)} />
@@ -18,21 +27,18 @@ const TypeInfo = () => {
         <Modal>
           <InfoWrapper>
             <InfoHeader>
-              <InfoHeading>{"Door type"}</InfoHeading>
+              <InfoHeading>{t("doorType")}</InfoHeading>
               <CloseButton
                 onClick={() => setInfoOpen(false)}
                 color="rgba(111, 145, 170, 1)"
               />
             </InfoHeader>
             <InfoBody>
-              {Object.keys(DOOR_TYPES).map(doorType => (
-                <div key={doorType}>
+              {doorTypes.map(doorType => (
+                <div key={doorType.name}>
                   <DoorTypePreview>
-                    <h5>{DOOR_TYPES[doorType].name}</h5>
-                    <View2D
-                      type={DOOR_TYPES[doorType].value}
-                      showDimensions={false}
-                    />
+                    <h5>{t(doorType.name)}</h5>
+                    <View2D type={doorTypes.value} showDimensions={false} />
                   </DoorTypePreview>
                 </div>
               ))}
@@ -44,7 +50,7 @@ const TypeInfo = () => {
   );
 };
 
-export default TypeInfo;
+export default withTranslation()(TypeInfo);
 
 const InfoIcon = styled.span`
   position: absolute;

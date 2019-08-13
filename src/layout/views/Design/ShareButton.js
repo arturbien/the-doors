@@ -1,5 +1,8 @@
 import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
+
+import { withTranslation } from "react-i18next";
+
 import styled from "styled-components";
 import Snackbar from "../../../shared/components/Snackbar";
 
@@ -19,6 +22,7 @@ const ShareButton = ({
   beams,
   type,
   children,
+  t,
   ...otherProps
 }) => {
   const input = useRef();
@@ -36,7 +40,6 @@ const ShareButton = ({
   const handleClick = () => {
     setShowToast(true);
     input.current.select();
-    console.log(input.current);
     document.execCommand("copy");
   };
 
@@ -52,9 +55,9 @@ const ShareButton = ({
           message={
             <span>
               <a href={link} target="_blank">
-                Link
+                {t("link")}
               </a>{" "}
-              copied to clipboard! 😊
+              {t("copiedToClipboard")}! 😊
             </span>
           }
           onClose={() => setShowToast(false)}
@@ -79,7 +82,7 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   null
-)(ShareButton);
+)(withTranslation()(ShareButton));
 
 const Button = styled.button`
   padding: 6px 18px;

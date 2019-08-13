@@ -6,7 +6,11 @@ import { DOOR_TYPES, COLORS, DIMENSIONS, STRUCTURE } from "../../../../config";
 import useDimensions from "../../../../shared/hooks/useDimensions";
 
 const Door = ({ color, width, height, thickness, beams, posts }) => (
-  <DoorFrame color={color} style={{ width, height }} thickness={thickness}>
+  <DoorFrame
+    color={color}
+    style={{ width: width || 0, height: height || 0 }}
+    thickness={thickness}
+  >
     <div>
       {[...new Array(beams)].map((_, i) => (
         <span key={i} />
@@ -23,13 +27,13 @@ const Door = ({ color, width, height, thickness, beams, posts }) => (
 const Dimensions = ({ type, width, height, offset = 30 }) => (
   <DimensionsWrapper offset={offset} type={type}>
     <div>
-      <span>{type * width}</span>
+      <span>{type * (width || 0)}</span>
     </div>
     <div>
-      <span>{width}</span>
+      <span>{width || 0}</span>
     </div>
     <div>
-      <span>{height}</span>
+      <span>{height || 0}</span>
     </div>
   </DimensionsWrapper>
 );

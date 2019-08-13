@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+
+import { withTranslation } from "react-i18next";
+
+import LabelText from "../shared/components/LabelText";
 import Popup from "../shared/components/Popup";
 
 const Button = styled.button`
@@ -21,28 +25,55 @@ const Info = styled(Popup)`
   top: calc(100% + 30px);
   right: 0;
   min-width: 400px;
+  ${LabelText} {
+    line-height: 26px;
+  }
 `;
-const OrganizationInfo = ({ data, fetchData }) => {
+const OrganizationInfo = ({ data, fetchData, t }) => {
   const [infoOpen, setInfoOpen] = useState(false);
+
+  // fetch data only when user wants to see organization data
   useEffect(() => {
-    if (!data) {
+    if (!data && infoOpen) {
       fetchData();
     }
-  });
+  }, [data, fetchData, infoOpen]);
 
   return (
     <Wrapper>
       <Button onClick={() => setInfoOpen(!infoOpen)}>
-        {"My organization"}
+        {t("myOrganization")}
       </Button>
       {infoOpen && (
         <Info>
           {data ? (
-            Object.keys(data).map(prop => (
-              <p key={prop}>{prop + ": " + data[prop]}</p>
-            ))
+            <>
+              <LabelText>
+                {t("name")}: {data.name}
+              </LabelText>
+              <br />
+              <LabelText>
+                {t("email")}: {data.email}
+              </LabelText>
+              <br />
+              <LabelText>
+                {t("phoneNumber")}: {data.phone_number}
+              </LabelText>
+              <br />
+              <LabelText>
+                {t("address")}:{" "}
+                {data.address_line_1 + " " + data.address_line_2}
+              </LabelText>
+              <br />
+              <LabelText>
+                {t("city")}: {data.city}
+              </LabelText>
+              <LabelText>
+                {t("postalCode")}: {data.postal_code}
+              </LabelText>
+            </>
           ) : (
-            <p>...loading</p>
+            <p>{t("processing")}...</p>
           )}
         </Info>
       )}
@@ -50,4 +81,4 @@ const OrganizationInfo = ({ data, fetchData }) => {
   );
 };
 
-export default OrganizationInfo;
+export default withTranslation()(OrganizationInfo);

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import { withTranslation } from "react-i18next";
+
 import { connect } from "react-redux";
 import { login } from "../../../store/actions/user";
 import { dismissLoginError } from "../../../store/actions/errors";
@@ -11,33 +13,33 @@ import TextField from "../../../shared/components/TextField";
 import Checkbox from "../../../shared/components/Checkbox";
 import Snackbar from "../../../shared/components/Snackbar";
 
-const Login = ({ login, loading, error, dismissLoginError }) => {
+const Login = ({ login, loading, error, dismissLoginError, t }) => {
   const [email, setEmail] = useState("login@applover.pl");
   const [password, setPassword] = useState("password123");
   const [remember, setRemember] = useState(false);
   return (
     <div>
       <Wrapper>
-        <Heading>Log in</Heading>
+        <Heading>{t("loginTitle")}</Heading>
         <form>
           {/* disabled fieldset makes all inputs inside disabled */}
           <fieldset disabled={loading}>
             <TextField
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="Email adress"
+              placeholder={t("email")}
               type="email"
             />
             <TextField
               value={password}
               onChange={e => setPassword(e.target.value)}
-              placeholder="Password"
+              placeholder={t("password")}
               type="password"
             />
             <Checkbox
               checked={remember}
               onChange={() => setRemember(!remember)}
-              label="Keep me logged in"
+              label={t("remember")}
               style={{ marginTop: 3 }}
             />
             <LoginButton
@@ -46,15 +48,17 @@ const Login = ({ login, loading, error, dismissLoginError }) => {
                 login({ email, password, remember });
               }}
             >
-              Login
+              {t("login")}
             </LoginButton>
           </fieldset>
         </form>
-        {loading && !error && <ProgressOverlay message={"Processing..."} />}
+        {loading && !error && (
+          <ProgressOverlay message={t("processing") + "..."} />
+        )}
         {error && (
           <Snackbar
             variant="error"
-            message="Invalid email or password"
+            message={t("loginError")}
             onClose={dismissLoginError}
           />
         )}
@@ -79,7 +83,7 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login);
+)(withTranslation()(Login));
 
 const Wrapper = styled.div`
   max-width: 397px;
@@ -102,7 +106,6 @@ const Heading = styled.h3`
   color: rgba(114, 114, 114, 1);
   line-height: 32px;
 `;
-// TODO fix line heights- they don't translate 1:1 to Adobe XD specs
 const LoginButton = styled.button`
   height: 48px;
   width: 100%;

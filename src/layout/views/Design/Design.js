@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import { withTranslation } from "react-i18next";
+
 import Preview from "./Preview/Preview";
 import Settings from "./Settings/Settings";
 import ShareButton from "./ShareButton";
@@ -8,68 +10,68 @@ import ShareButton from "./ShareButton";
 import Stepper from "../../../shared/components/Stepper";
 import RectButton from "../../../shared/components/RectButton";
 
-const steps = [
-  "step 1\nchoose door",
-  "step 2\nchoose door division",
-  "step 3\nchoose color"
-];
-const settingsToDisplay = [
-  ["DOOR_TYPE", "DOOR_SIZE"],
-  ["DOOR_DIVISION"],
-  ["DOOR_COLOR"]
-];
-
-const Design = () => {
+const Design = ({ t }) => {
   const [step, setStep] = useState(0);
 
+  const settingsToDisplay = [
+    ["DOOR_TYPE", "DOOR_SIZE"],
+    ["DOOR_DIVISION"],
+    ["DOOR_COLOR"]
+  ];
   const handleChangeStep = index => {
     if (index !== step && index >= 0 && index <= steps.length - 1) {
       setStep(index);
     }
   };
 
+  const steps = [
+    `${t("step")} 1
+    ${t("chooseDoor")}`,
+    `${t("step")} 2
+    ${t("chooseDivision")}`,
+    `${t("step")} 3
+    ${t("chooseColor")}`
+  ];
+
   return (
-      <Main>
-        <div>
-          <Stepper steps={steps} activeStep={step} />
-        </div>
-        <div>
-          <Configurator>
-            <PreviewWrapper>
-              <Preview />
-            </PreviewWrapper>
-            <Sidebar>
-              <Settings settingsToDisplay={settingsToDisplay[step]} />
+    <Main>
+      <div>
+        <Stepper steps={steps} activeStep={step} />
+      </div>
+      <div>
+        <Configurator>
+          <PreviewWrapper>
+            <Preview />
+          </PreviewWrapper>
+          <Sidebar>
+            <Settings settingsToDisplay={settingsToDisplay[step]} />
 
-              <div>
-                {step === steps.length - 1 && (
-                  <Share>
-                    <ShareButton>share</ShareButton>
-                  </Share>
-                )}
+            <div>
+              {step === steps.length - 1 && (
+                <Share>
+                  <ShareButton>{t("share")}</ShareButton>
+                </Share>
+              )}
 
-                <StepperNav>
-                  {step > 0 && (
-                    <RectButton onClick={() => handleChangeStep(step - 1)}>
-                      back
-                    </RectButton>
-                  )}
-                  <RectButton
-                    onClick={() => handleChangeStep(step + 1)}
-                    primary
-                  >
-                    next step
+              <StepperNav>
+                {step > 0 && (
+                  <RectButton onClick={() => handleChangeStep(step - 1)}>
+                    {t("back")}
                   </RectButton>
-                </StepperNav>
-              </div>
-            </Sidebar>
-          </Configurator>
-        </div>
-      </Main>
+                )}
+                <RectButton onClick={() => handleChangeStep(step + 1)} primary>
+                  {t("nextStep")}
+                </RectButton>
+              </StepperNav>
+            </div>
+          </Sidebar>
+        </Configurator>
+      </div>
+    </Main>
   );
 };
 
-export default Design;
+export default withTranslation()(Design);
 
 const Main = styled.main`
   padding: 22px 0;

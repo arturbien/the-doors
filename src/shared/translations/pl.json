@@ -1,0 +1,43 @@
+{
+  "loginTitle": "Zaloguj się",
+  "email": "Adres email",
+  "password": "Hasło",
+  "remember": "Zapamiętaj mnie",
+  "login": "Zaloguj",
+  "processing": "Przetwarzanie",
+  "myOrganization": "Moja organizacja",
+  "step": "krok",
+  "chooseDoor": "Wybierz drzwi",
+  "chooseDivision": "Wybierz podział drzwi",
+  "chooseColor": "Wybierz kolor",
+  "doorType": "Typ drzwi",
+  "singleDoor": "Pojedyńcze",
+  "doubleDoor": "Podwójne",
+  "doorSize": "Rozmiar drzwi",
+  "width": "Wysokość",
+  "height": "Szerokość",
+  "doorDivision": "Podział drzwi",
+  "numberOfBeams": "Liczba belek",
+  "numberOfPosts": "Liczba słupków",
+  "share": "udostępnij",
+  "back": "wstecz",
+  "nextStep": "dalej",
+  "name": "Nazwa",
+  "phoneNumber": "Numer telefonu",
+  "address": "Adres",
+  "city": "Miejscowość",
+  "postalCode": "Kod pocztowy",
+  "loginError": "Niepoprawny email lub hasło",
+  "link": "Link",
+  "copiedToClipboard": "skopiowany do schowka",
+
+  "colors": {
+    "black": "Czarny",
+    "white": "Biały",
+
+    "gray": "Szary",
+
+    "neon": "Zielony",
+    "sky": "Błękitny"
+  }
+}

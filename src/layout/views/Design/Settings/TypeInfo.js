@@ -37,7 +37,7 @@ const TypeInfo = ({ t }) => {
                 <div key={doorType.name}>
                   <DoorTypePreview>
                     <h5>{t(doorType.name)}</h5>
-                    <View2D type={doorTypes.value} showDimensions={false} />
+                    <View2D type={doorType.value} showDimensions={false} />
                   </DoorTypePreview>
                 </div>
               ))}

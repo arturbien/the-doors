@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 
 import { LANGUAGES } from "../config";
 // TODO src-set on this image
-import LogoImage from "../assets/images/Logo@2x.png";
+import LogoImage2x from "../assets/images/Logo@2x.png";
+import LogoImage1x from "../assets/images/Logo.png";
 
 import OrganizationInfo from "./OrganizationInfo";
 
@@ -26,7 +27,11 @@ const AppBar = ({ user, fetchOrganization, setLanguage, t, ...otherProps }) => {
       <Center>
         <div>
           <Link to="/">
-            <Logo src={LogoImage} alt={"Applover logo"} />
+            <Logo
+              src={LogoImage1x}
+              alt={"Applover logo"}
+              srcSet={`${LogoImage1x} 1x, ${LogoImage2x} 2x`}
+            />
           </Link>
         </div>
         <div>

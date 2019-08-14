@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 
 import { LANGUAGES } from "../config";
@@ -25,9 +25,9 @@ const AppBar = ({ user, fetchOrganization, setLanguage, t, ...otherProps }) => {
     <Wrapper>
       <Center>
         <div>
-          <a href="/">
+          <Link to="/">
             <Logo src={LogoImage} alt={"Applover logo"} />
-          </a>
+          </Link>
         </div>
         <div>
           <RightNav>

@@ -9,7 +9,6 @@ const Snackbar = ({ message, variant, onClose }) => {
   let wrapper = useRef();
   useEffect(() => {
     const current = wrapper.current;
-    console.log("asd");
     current.style.transform = "translateY(0)";
     return () => (current.style.transform = "");
   }, []);

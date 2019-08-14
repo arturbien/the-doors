@@ -27,8 +27,8 @@ const ShareButton = ({
 }) => {
   const input = useRef();
   const [showToast, setShowToast] = useState(false);
-
-  const link = `${window.location.host}/preview/${encodeData({
+  // TODO save pa
+  const link = `${window.location.href}share/?${encodeData({
     width,
     height,
     color,

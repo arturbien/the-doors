@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.js": "/the-doors/static/js/main.90d63c5d.chunk.js",
+    "main.js.map": "/the-doors/static/js/main.90d63c5d.chunk.js.map",
+    "runtime~main.js": "/the-doors/static/js/runtime~main.fe640101.js",
+    "runtime~main.js.map": "/the-doors/static/js/runtime~main.fe640101.js.map",
+    "static/js/2.2af3a5f2.chunk.js": "/the-doors/static/js/2.2af3a5f2.chunk.js",
+    "static/js/2.2af3a5f2.chunk.js.map": "/the-doors/static/js/2.2af3a5f2.chunk.js.map",
+    "index.html": "/the-doors/index.html",
+    "precache-manifest.5b6c59febab4bc3ec35355a1d8a1bef6.js": "/the-doors/precache-manifest.5b6c59febab4bc3ec35355a1d8a1bef6.js",
+    "service-worker.js": "/the-doors/service-worker.js",
+    "static/media/icon.svg": "/the-doors/static/media/icon.520f22a7.svg"
+  }
+}

@@ -31,12 +31,16 @@
 
   "link": "Link",
   "copiedToClipboard": "copied to clipboard",
-
+  "selectLanguage": "Select language",
   "colors": {
     "black": "Black",
     "white": "White",
     "gray": "Gray",
     "neon": "Green",
     "sky": "Blue"
+  },
+  "languages": {
+    "en": "English",
+    "pl": "Polish"
   }
 }

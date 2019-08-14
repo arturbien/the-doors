@@ -6,14 +6,18 @@ import { connect } from "react-redux";
 import Login from "./layout/views/Login/Login";
 import Design from "./layout/views/Design/Design";
 import AppBar from "./layout/AppBar";
-import { fetchOrganization } from "./store/actions/user";
+import { fetchOrganization, setLanguage } from "./store/actions/user";
 
-function App({ user, fetchOrganization }) {
+function App({ user, fetchOrganization, setLanguage }) {
   return (
     <>
       <BrowserRouter>
         <>
-          <AppBar user={user} fetchOrganization={fetchOrganization} />
+          <AppBar
+            user={user}
+            fetchOrganization={fetchOrganization}
+            setLanguage={setLanguage}
+          />
           {user.email ? (
             <Switch>
               <Route exact path={"/"} component={Design} />
@@ -37,7 +41,8 @@ const mapStateToProps = state => {
   };
 };
 const mapDispatchToProps = dispatch => ({
-  fetchOrganization: () => dispatch(fetchOrganization())
+  fetchOrganization: () => dispatch(fetchOrganization()),
+  setLanguage: language => dispatch(setLanguage(language))
 });
 export default connect(
   mapStateToProps,

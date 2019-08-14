@@ -2,6 +2,7 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
+  SET_LANGUAGE,
   FETCH_ORGANIZATION_REQUEST,
   FETCH_ORGANIZATION_SUCCESS,
   FETCH_ORGANIZATION_ERROR
@@ -21,7 +22,10 @@ export function login({ email, password, remember }) {
         payload: { email, token, remember }
       });
     } catch (err) {
-      console.log("💖💖💖", err);
+      console.log(
+        "💖💖💖  yeah I know I should display different error message on 500",
+        err
+      );
       const statusCode = err.response.status;
       let message;
       switch (statusCode) {
@@ -47,7 +51,6 @@ export function fetchOrganization() {
       // TODO catch errors
       const response = await API.fetchOrganization({ token });
       const data = response.data;
-      console.log(data);
       return dispatch({
         type: FETCH_ORGANIZATION_SUCCESS,
         payload: data
@@ -55,5 +58,12 @@ export function fetchOrganization() {
     } catch (err) {
       dispatch({ type: FETCH_ORGANIZATION_ERROR });
     }
+  };
+}
+
+export function setLanguage(language) {
+  return {
+    type: SET_LANGUAGE,
+    payload: language
   };
 }

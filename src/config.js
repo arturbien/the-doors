@@ -40,3 +40,14 @@ export const STRUCTURE = {
     max: 4
   }
 };
+
+export const LANGUAGES = {
+  EN: {
+    value: "en",
+    label: "English"
+  },
+  PL: {
+    value: "pl",
+    label: "Polish"
+  }
+};

@@ -30,6 +30,7 @@
   "loginError": "Niepoprawny email lub hasło",
   "link": "Link",
   "copiedToClipboard": "skopiowany do schowka",
+  "selectLanguage": "Wybierz język",
 
   "colors": {
     "black": "Czarny",
@@ -39,5 +40,9 @@
 
     "neon": "Zielony",
     "sky": "Błękitny"
+  },
+  "languages": {
+    "en": "Angielski",
+    "pl": "Polski"
   }
 }

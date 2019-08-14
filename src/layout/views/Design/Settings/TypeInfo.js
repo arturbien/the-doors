@@ -19,7 +19,6 @@ const TypeInfo = ({ t }) => {
     doorObj.name = t(doorObj.name);
     return doorObj;
   });
-  console.log(doorTypes);
   return (
     <>
       <InfoIcon onClick={() => setInfoOpen(true)} />

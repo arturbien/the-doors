@@ -1,11 +1,26 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
+import { withTranslation } from "react-i18next";
+
+import { LANGUAGES } from "../config";
+// TODO src-set on this image
 import LogoImage from "../assets/images/Logo@2x.png";
 
 import OrganizationInfo from "./OrganizationInfo";
 
-const AppBar = ({ user, fetchOrganization, ...otherProps }) => {
+import Select from "../shared/components/Select";
+import LabelText from "../shared/components/LabelText";
+
+const AppBar = ({ user, fetchOrganization, setLanguage, t, ...otherProps }) => {
+  const languages = Object.keys(LANGUAGES).map(id => {
+    const language = { ...LANGUAGES[id] };
+    language.label = t(`languages.${language.value}`);
+    return language;
+  });
+  const activeLanguageIndex = languages.findIndex(
+    language => language.value === user.language
+  );
   return (
     <Wrapper>
       <Center>
@@ -15,19 +30,30 @@ const AppBar = ({ user, fetchOrganization, ...otherProps }) => {
           </a>
         </div>
         <div>
-          {user.token && (
-            <OrganizationInfo
-              fetchData={fetchOrganization}
-              data={user.organization}
-            />
-          )}
+          <RightNav>
+            <LabelText>{t("selectLanguage")}:</LabelText>
+            <SelectWrapper>
+              <Select
+                onChange={language => setLanguage(language)}
+                style={{ width: 112 }}
+                items={languages}
+                selectedIndex={activeLanguageIndex}
+              />
+            </SelectWrapper>
+            {user.token && (
+              <OrganizationInfo
+                fetchData={fetchOrganization}
+                data={user.organization}
+              />
+            )}
+          </RightNav>
         </div>
       </Center>
     </Wrapper>
   );
 };
 
-export default AppBar;
+export default withTranslation()(AppBar);
 
 const Wrapper = styled.header`
   position: relative;
@@ -49,4 +75,11 @@ const Center = styled.div`
 const Logo = styled.img`
   height: 47px;
   width: 47px;
+`;
+const SelectWrapper = styled.div`
+  margin: 0 20px;
+`;
+const RightNav = styled.nav`
+  display: inline-flex;
+  align-items: center;
 `;
